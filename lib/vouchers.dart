@@ -167,6 +167,7 @@ class _VoucherPageState extends State<VoucherPage> {
                           )
                         }),
                 Container(
+                  margin: EdgeInsets.only(right: 17, top: 0),
                   decoration: BoxDecoration(
                       color: header.withOpacity(0.1),
                       borderRadius: BorderRadius.only(
@@ -182,7 +183,7 @@ class _VoucherPageState extends State<VoucherPage> {
                         style: TextStyle(color: header),
                       ),
                       trailing: Container(
-                          margin: EdgeInsets.only(right: 15),
+                          margin: EdgeInsets.only(right: 0),
                           child: new Text(
                             "1",
                             style: TextStyle(color: header),
