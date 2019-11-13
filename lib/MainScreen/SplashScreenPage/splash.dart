@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
-import 'package:foodpanda_app/homepage.dart';
+import 'package:foodpanda_app/MainScreen/HomePage/homepage.dart';
 import 'dart:async';
 import 'package:foodpanda_app/main.dart';
 //import 'package:login_page/login_page.dart';

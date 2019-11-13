@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:foodpanda_app/address.dart';
-import 'package:foodpanda_app/homepage.dart';
+import 'package:foodpanda_app/MainScreen/ReviewDriverPage/reviewDriverPage.dart';
 import 'package:foodpanda_app/main.dart';
-import 'package:foodpanda_app/orderlist.dart';
-import 'package:foodpanda_app/profile.dart';
-import 'package:foodpanda_app/vouchers.dart';
 import 'package:intl/intl.dart';
 
 class OrderDetailsPage extends StatefulWidget {
@@ -46,175 +42,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Drawer drawer = new Drawer(
-      child: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            child: new Wrap(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          //color: Colors.red,
-                          margin: EdgeInsets.only(left: 10, right: 0, top: 0),
-                          padding: EdgeInsets.only(right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(right: 10),
-                                //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
-                                padding: EdgeInsets.all(1.0),
-                                child: CircleAvatar(
-                                  radius: 30.0,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage:
-                                      AssetImage('assets/user.png'),
-                                ),
-                                decoration: new BoxDecoration(
-                                  color: Colors.grey, // border color
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      "Hello,",
-                                      style: TextStyle(
-                                          fontSize: 15, color: Colors.black38),
-                                    ),
-                                    Text(
-                                      "John Smith",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 17),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      // Container(
-                      //     margin: EdgeInsets.only(right: 15),
-                      //     child: Icon(Icons.chevron_right)),
-                    ],
-                  ),
-                ),
-                // Container(
-                //     margin: EdgeInsets.only(top: 15),
-                //     child: Divider(color: Colors.grey)),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: new ListTile(
-                      leading: new Icon(Icons.home),
-                      title: new Text(
-                        'Home',
-                      ),
-                      onTap: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MyHomePage()),
-                            )
-                          }),
-                ),
-                new ListTile(
-                    leading: new Icon(Icons.account_box),
-                    title: new Text('Profile'),
-                    onTap: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfileViewPage()),
-                          )
-                        }),
-                Container(
-                  margin: EdgeInsets.only(right: 17, top: 0),
-                  decoration: BoxDecoration(
-                      color: header.withOpacity(0.1),
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(100),
-                          bottomRight: Radius.circular(100))),
-                  child: new ListTile(
-                      leading: new Icon(Icons.list, color: header),
-                      title:
-                          new Text('Orders', style: TextStyle(color: header)),
-                      trailing: Container(
-                          margin: EdgeInsets.only(right: 0),
-                          child: new Text(
-                            "5",
-                            style: TextStyle(color: header),
-                          )),
-                      onTap: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OrderListPage()),
-                            )
-                          }),
-                ),
-                new ListTile(
-                    leading: new Icon(Icons.location_on),
-                    title: new Text('Addresses'),
-                    trailing: Container(
-                        margin: EdgeInsets.only(right: 15),
-                        child: new Text(
-                          "2",
-                          style: TextStyle(color: header),
-                        )),
-                    onTap: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddressPage()),
-                          )
-                        }),
-                new ListTile(
-                    leading: new Icon(Icons.book),
-                    title: new Text('Vouchers'),
-                    trailing: Container(
-                        margin: EdgeInsets.only(right: 15),
-                        child: new Text(
-                          "1",
-                          style: TextStyle(color: header),
-                        )),
-                    onTap: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => VoucherPage()),
-                          )
-                        }),
-                Divider(color: Colors.grey),
-                new ListTile(
-                  leading: new Icon(Icons.settings),
-                  title: new Text('Settings'),
-                  onTap: () => {},
-                ),
-                new ListTile(
-                  leading: new Icon(Icons.security),
-                  title: new Text('Terms and Condition'),
-                  onTap: () => {},
-                ),
-                new ListTile(
-                  leading: new Icon(Icons.settings_power),
-                  title: new Text('Logout'),
-                  onTap: () => {},
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
     return Scaffold(
       //drawer: drawer,
       appBar: AppBar(
@@ -693,14 +520,23 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                      padding: EdgeInsets.only(
-                                          left: 5, top: 5, bottom: 5),
-                                      margin: EdgeInsets.only(left: 5),
-                                      child: Text(
-                                        "Review",
-                                        style: TextStyle(color: header),
-                                      )),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DriverReviewPage()));
+                                    },
+                                    child: Container(
+                                        padding: EdgeInsets.only(
+                                            left: 5, top: 5, bottom: 5),
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          "Review",
+                                          style: TextStyle(color: header),
+                                        )),
+                                  ),
                                 ],
                               ),
                             ],

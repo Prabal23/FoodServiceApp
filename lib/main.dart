@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodpanda_app/splash.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'homepage.dart';
+import 'MainScreen/SplashScreenPage/splash.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +10,8 @@ Color sub_white = Color(0xFFf4f4f4);
 Color golden = Color(0xFFCFB53B);
 Color chat_back = Color(0xFFEAE7E2);
 Color my_chat = Color(0xFFDAF5C2);
+
+int selectedPage = 0;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

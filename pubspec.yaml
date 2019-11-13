@@ -28,6 +28,7 @@ dependencies:
   intl:
   flutter_multiple_image_picker:
   flutter_statusbarcolor:
+  image_picker:
 
 dev_dependencies:
   flutter_test:
