@@ -1,4 +1,4 @@
-package com.example.foodpanda_app;
+package com.product.food_service;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
