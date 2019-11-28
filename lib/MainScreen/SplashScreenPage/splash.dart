@@ -57,7 +57,7 @@ class SplashScreenState extends State<SplashScreen>
               minRadius: 60,
               maxRadius: 60,
               //radius: 68.0,
-              child: Image.asset('assets/foodpanda_bd.jpg'),
+              child: Image.asset('assets/meal.png'),
             ),
           ],
         ),
@@ -80,7 +80,7 @@ class SplashScreenState extends State<SplashScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("Food Panda", style: TextStyle(color: Colors.white, fontSize: 20)),
+                    Text("Food Service", style: TextStyle(color: Colors.white, fontSize: 20)),
                   ],
                 ),
                 // SizedBox(height: 15),

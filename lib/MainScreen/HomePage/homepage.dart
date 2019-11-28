@@ -410,27 +410,51 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: Colors.white,
               title: Center(
                 child: Container(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Deliver To : ",
-                            style:
-                                TextStyle(fontSize: 17, color: Colors.black54)),
-                        GestureDetector(
-                          onTap: () {
-                            placeFinder();
-                          },
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(top: 5, bottom: 5, right: 5),
-                            child: Text("Modina Market",
-                                style: TextStyle(fontSize: 17, color: header)),
-                          ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.only(right: 5),
+                              padding: EdgeInsets.all(3),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                //backgroundImage: ExactAssetImage('assets/logo.png'),
+                                minRadius: 10,
+                                maxRadius: 10,
+                                //radius: 68.0,
+                                child: Image.asset('assets/meal1.png'),
+                              ),
+                            ),
+                            Text("Food",
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.black54)),
+                            Container(
+                              padding: EdgeInsets.only(
+                                  top: 5, bottom: 5, right: 5, left: 3),
+                              child: Text("Service",
+                                  style:
+                                      TextStyle(fontSize: 17, color: header)),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          placeFinder();
+                        },
+                        child: Container(
+                            padding: EdgeInsets.all(0),
+                            child: Icon(Icons.location_on)),
+                      )
+                    ],
                   ),
                 ),
               ),
