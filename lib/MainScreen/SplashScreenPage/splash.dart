@@ -3,7 +3,6 @@ import 'package:flutter/animation.dart';
 import 'package:foodpanda_app/MainScreen/HomePage/homepage.dart';
 import 'dart:async';
 import 'package:foodpanda_app/main.dart';
-//import 'package:login_page/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -22,16 +21,6 @@ class SplashScreenState extends State<SplashScreen>
     super.initState();
 
     loadData();
-    // controller =
-    //     AnimationController(duration: const Duration(seconds: 0), vsync: this);
-    // animation = Tween<double>(begin: 0, end: 250).animate(controller)
-    //   ..addListener(() {
-    //     setState(() {
-    //       loadData();
-    //       // The state that has changed here is the animation object’s value.
-    //     });
-    //   });
-    // controller.forward();
   }
 
   Future<Timer> loadData() async {
@@ -57,7 +46,7 @@ class SplashScreenState extends State<SplashScreen>
               minRadius: 60,
               maxRadius: 60,
               //radius: 68.0,
-              child: Image.asset('assets/meal.png'),
+              child: Image.asset('assets/meal1.png'),
             ),
           ],
         ),
@@ -67,51 +56,36 @@ class SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        color: header,
+        color: Colors.white,
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Container(
-                    //height: animation.value,
-                    //width: animation.value,
-                    child: logo),
-                    
+                Container(child: logo),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("Food Service", style: TextStyle(color: Colors.white, fontSize: 20)),
+                    Text("Food",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold)),
+                    Container(
+                      padding:
+                          EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 3),
+                      child: Text("Service",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: header,
+                              fontWeight: FontWeight.bold)),
+                    ),
                   ],
                 ),
-                // SizedBox(height: 15),
-                // new CircularProgressIndicator(
-                //   valueColor:
-                //       AlwaysStoppedAnimation<Color>(Colors.white70),
-                // ),
-                // SizedBox(height: 20),
               ],
             ),
           ),
         ),
-
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage('assets/logo.png'),
-        //     fit: BoxFit.cover
-        //   ) ,
-        // ),
-        // child: Center(
-        //   child: CircularProgressIndicator(
-        //     valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlueAccent),
-        //   ),
-        // ),
       ),
     );
   }
-
-  // @override
-  // void dispose() {
-  //   controller.dispose();
-  //   super.dispose();
-  // }
 }

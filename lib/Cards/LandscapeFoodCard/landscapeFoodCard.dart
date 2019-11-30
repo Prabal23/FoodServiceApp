@@ -42,6 +42,7 @@ class _LandscapeFoodCardState extends State<LandscapeFoodCard> {
                               : 'assets/roll.jpg',
                           height: 100,
                           width: 120,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -235,7 +236,7 @@ class _LandscapeFoodCardState extends State<LandscapeFoodCard> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: EdgeInsets.only(top: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[

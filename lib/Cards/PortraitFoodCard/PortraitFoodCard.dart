@@ -42,6 +42,7 @@ class _PortraitFoodCardState extends State<PortraitFoodCard> {
                               : 'assets/roll.jpg',
                           height: 100,
                           width: 120,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

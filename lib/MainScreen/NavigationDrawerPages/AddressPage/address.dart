@@ -250,14 +250,23 @@ class _AddressPageState extends State<AddressPage> {
                     alignment: Alignment.center,
                     //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
                     padding: EdgeInsets.all(5.0),
-                    child: CircleAvatar(
-                      radius: 30.0,
-                      backgroundColor: Colors.transparent,
-                      backgroundImage: AssetImage('assets/foodpanda_bd.jpg'),
+                    child: Container(
+                      decoration: new BoxDecoration(
+                      color: Colors.white, // border color
+                      shape: BoxShape.circle,
+                      border: Border.all(color: header, width: 0.8)
+                    ),
+                      child: CircleAvatar(
+                        radius: 30.0,
+                        backgroundColor: Colors.white,
+                        //backgroundImage: AssetImage('assets/meal1.png'),
+                        child: Image.asset('assets/meal1.png', fit: BoxFit.fill, height: 30, width: 30,),
+                      ),
                     ),
                     decoration: new BoxDecoration(
                       color: Colors.white, // border color
                       shape: BoxShape.circle,
+                      //border: Border.all(color: header, width: 0.8)
                     ),
                   ),
                 ],
