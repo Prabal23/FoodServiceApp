@@ -1594,13 +1594,22 @@ class DetailsPageState extends State<DetailsPage>
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
-                                                  height: 60,
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25),
+                                                      border: Border.all(
+                                                          width: 0.5,
+                                                          color: header)),
+                                                  height: 45,
                                                   child: Container(
                                                     padding:
                                                         const EdgeInsets.all(
                                                             3.0),
                                                     child: Image.asset(
-                                                      'assets/foodpanda_bd.jpg',
+                                                      'assets/meal1.png',
                                                     ),
                                                   ),
                                                 ),

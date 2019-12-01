@@ -4,7 +4,7 @@ import 'MainScreen/SplashScreenPage/splash.dart';
 
 void main() => runApp(MyApp());
 
-Color header = Color(0xFFD21363);
+Color header = Color(0xFF6CA5FF);
 Color subheader = Colors.lightBlue;
 Color sub_white = Color(0xFFf4f4f4);
 Color golden = Color(0xFFCFB53B);

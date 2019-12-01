@@ -25,10 +25,13 @@ class _CartState extends State<CartPage> {
       phone = "",
       payment = "",
       result = '';
-  int val = 0, _current = 0;
+  int val = 1, _current = 0;
   var dd, finalDate;
   DateTime _date = DateTime.now();
-  bool placeEdit = false, phoneEdit = false, paymentChoose = false;
+  bool placeEdit = false,
+      phoneEdit = false,
+      paymentChoose = false,
+      couponOpen = false;
 
   @override
   void initState() {
@@ -294,15 +297,19 @@ class _CartState extends State<CartPage> {
                     padding: EdgeInsets.all(5.0),
                     child: Container(
                       decoration: new BoxDecoration(
-                      color: Colors.white, // border color
-                      shape: BoxShape.circle,
-                      border: Border.all(color: header, width: 0.8)
-                    ),
+                          color: Colors.white, // border color
+                          shape: BoxShape.circle,
+                          border: Border.all(color: header, width: 0.8)),
                       child: CircleAvatar(
                         radius: 30.0,
                         backgroundColor: Colors.white,
                         //backgroundImage: AssetImage('assets/meal1.png'),
-                        child: Image.asset('assets/meal1.png', fit: BoxFit.fill, height: 30, width: 30,),
+                        child: Image.asset(
+                          'assets/meal1.png',
+                          fit: BoxFit.fill,
+                          height: 30,
+                          width: 30,
+                        ),
                       ),
                     ),
                     decoration: new BoxDecoration(
@@ -352,6 +359,697 @@ class _CartState extends State<CartPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(
+                            top: 5, left: 20, right: 20, bottom: 5),
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                            color: Colors.white,
+                            border: Border.all(width: 0.2, color: Colors.grey)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Product List",
+                              style:
+                                  TextStyle(fontSize: 17, color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              padding:
+                                  EdgeInsets.only(top: 5, right: 5, bottom: 5),
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Container(
+                                            child: Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  width: 55,
+                                                  height: 55,
+                                                  decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: AssetImage(
+                                                              'assets/burger.jpg'),
+                                                          fit: BoxFit.cover),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15)),
+                                                ),
+                                                Expanded(
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 5),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Container(
+                                                            //color: Colors.grey[200],
+                                                            //padding: EdgeInsets.all(20),
+                                                            child: Text(
+                                                          "Product 1",
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.grey),
+                                                        )),
+                                                        Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 10),
+                                                            child: Row(
+                                                              children: <
+                                                                  Widget>[
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      val--;
+                                                                      if (val <=
+                                                                          0) {
+                                                                        val = 0;
+                                                                      }
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                header),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5)),
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(2),
+                                                                    margin: EdgeInsets.only(
+                                                                        left: 3,
+                                                                        right:
+                                                                            10),
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .remove,
+                                                                        size:
+                                                                            15,
+                                                                        color:
+                                                                            header),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  "$val",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black54),
+                                                                ),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      val++;
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                header),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5)),
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(2),
+                                                                    margin: EdgeInsets.only(
+                                                                        left:
+                                                                            10,
+                                                                        right:
+                                                                            3),
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .add,
+                                                                        size:
+                                                                            15,
+                                                                        color:
+                                                                            header),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          margin: EdgeInsets.only(top: 5),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  //color: Colors.grey[200],
+                                                  //padding: EdgeInsets.all(20),
+                                                  child: Text(
+                                                "\$ 101.80",
+                                                style: TextStyle(
+                                                    color: Colors.black45,
+                                                    fontSize: 13),
+                                              )),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Colors.grey[300],
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Container(
+                                            child: Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  width: 55,
+                                                  height: 55,
+                                                  decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: AssetImage(
+                                                              'assets/roll.jpg'),
+                                                          fit: BoxFit.cover),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15)),
+                                                ),
+                                                Expanded(
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 5),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Container(
+                                                            //color: Colors.grey[200],
+                                                            //padding: EdgeInsets.all(20),
+                                                            child: Text(
+                                                          "Product 2",
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.grey),
+                                                        )),
+                                                        Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 10),
+                                                            child: Row(
+                                                              children: <
+                                                                  Widget>[
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      val--;
+                                                                      if (val <=
+                                                                          0) {
+                                                                        val = 0;
+                                                                      }
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                header),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5)),
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(2),
+                                                                    margin: EdgeInsets.only(
+                                                                        left: 3,
+                                                                        right:
+                                                                            10),
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .remove,
+                                                                        size:
+                                                                            15,
+                                                                        color:
+                                                                            header),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  "$val",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black54),
+                                                                ),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      val++;
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                header),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5)),
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(2),
+                                                                    margin: EdgeInsets.only(
+                                                                        left:
+                                                                            10,
+                                                                        right:
+                                                                            3),
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .add,
+                                                                        size:
+                                                                            15,
+                                                                        color:
+                                                                            header),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          margin: EdgeInsets.only(top: 5),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  //color: Colors.grey[200],
+                                                  //padding: EdgeInsets.all(20),
+                                                  child: Text(
+                                                "\$ 101.80",
+                                                style: TextStyle(
+                                                    color: Colors.black45,
+                                                    fontSize: 13),
+                                              )),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(
+                            top: 5, left: 20, right: 20, bottom: 5),
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                            color: Colors.white,
+                            border: Border.all(width: 0.2, color: Colors.grey)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Shopping Details",
+                              style:
+                                  TextStyle(fontSize: 17, color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              padding:
+                                  EdgeInsets.only(top: 5, right: 5, bottom: 5),
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                            //color: Colors.grey[200],
+                                            //padding: EdgeInsets.all(20),
+                                            child: Text(
+                                          "Total Products",
+                                          style: TextStyle(color: Colors.grey),
+                                        )),
+                                        Container(
+                                            child: Text(
+                                          "4",
+                                          textAlign: TextAlign.start,
+                                          style:
+                                              TextStyle(color: Colors.black54),
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 15, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                            //color: Colors.grey[200],
+                                            //padding: EdgeInsets.all(20),
+                                            child: Text(
+                                          "Total Price",
+                                          style: TextStyle(color: Colors.grey),
+                                        )),
+                                        Container(
+                                            child: Row(
+                                          children: <Widget>[
+                                            Icon(Icons.attach_money,
+                                                size: 15,
+                                                color: Colors.black54),
+                                            Text(
+                                              "250.25",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  color: Colors.black54),
+                                            ),
+                                          ],
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 15, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                            //color: Colors.grey[200],
+                                            //padding: EdgeInsets.all(20),
+                                            child: Text(
+                                          "Discount",
+                                          style: TextStyle(color: Colors.grey),
+                                        )),
+                                        Container(
+                                            child: Row(
+                                          children: <Widget>[
+                                            Icon(Icons.remove,
+                                                size: 15, color: header),
+                                            Icon(Icons.attach_money,
+                                                size: 15, color: header),
+                                            Text(
+                                              "50.05",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(color: header),
+                                            ),
+                                          ],
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 15, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                            //color: Colors.grey[200],
+                                            //padding: EdgeInsets.all(20),
+                                            child: Text(
+                                          "Sub Total",
+                                          style: TextStyle(color: Colors.grey),
+                                        )),
+                                        Container(
+                                            child: Row(
+                                          children: <Widget>[
+                                            Icon(Icons.attach_money,
+                                                size: 15,
+                                                color: Colors.black54),
+                                            Text(
+                                              "200.20",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  color: Colors.black54),
+                                            ),
+                                          ],
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 15, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                            //color: Colors.grey[200],
+                                            //padding: EdgeInsets.all(20),
+                                            child: Text(
+                                          "Coupon Discount",
+                                          style: TextStyle(color: Colors.grey),
+                                        )),
+                                        Container(
+                                            child: Row(
+                                          children: <Widget>[
+                                            Icon(Icons.remove,
+                                                size: 15, color: header),
+                                            Icon(Icons.attach_money,
+                                                size: 15, color: header),
+                                            Text(
+                                              "0.00",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(color: header),
+                                            ),
+                                          ],
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 15, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                            //color: Colors.grey[200],
+                                            //padding: EdgeInsets.all(20),
+                                            child: Text(
+                                          "Shipping Cost",
+                                          style: TextStyle(color: Colors.grey),
+                                        )),
+                                        Container(
+                                            child: Row(
+                                          children: <Widget>[
+                                            Icon(Icons.attach_money,
+                                                size: 15,
+                                                color: Colors.black54),
+                                            Text(
+                                              "100.00",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  color: Colors.black54),
+                                            ),
+                                          ],
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Colors.grey,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                            //color: Colors.grey[200],
+                                            //padding: EdgeInsets.all(20),
+                                            child: Text(
+                                          "Total Payable",
+                                          style: TextStyle(color: Colors.grey),
+                                        )),
+                                        Container(
+                                            child: Row(
+                                          children: <Widget>[
+                                            Icon(Icons.attach_money,
+                                                size: 15, color: Colors.black),
+                                            Text(
+                                              "300.20",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                  couponOpen == false
+                                      ? Container()
+                                      : Container(
+                                          margin: EdgeInsets.only(top: 20),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Flexible(
+                                                child: Container(
+                                                  padding:
+                                                      EdgeInsets.only(left: 5),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomLeft: Radius
+                                                                  .circular(5),
+                                                              topLeft: Radius
+                                                                  .circular(5)),
+                                                      border: Border.all(
+                                                          color: Colors.black45,
+                                                          width: 0.2)),
+                                                  child: TextField(
+                                                    autofocus: false,
+                                                    controller:
+                                                        _reviewController,
+                                                    decoration: InputDecoration(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Type voucher number...",
+                                                        hintStyle: TextStyle(
+                                                            fontSize: 13)),
+                                                    onChanged: (value) {
+                                                      review = value;
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                  margin:
+                                                      EdgeInsets.only(left: 0),
+                                                  padding: EdgeInsets.only(top: 14, bottom: 14, left: 10, right: 10),
+                                                  decoration: BoxDecoration(
+                                                      color: header,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          5),
+                                                              topRight: Radius
+                                                                  .circular(5)),
+                                                      border: Border.all(
+                                                          color: header,
+                                                          width: 0.2)),
+                                                  child: Text(
+                                                    "Apply",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        if (couponOpen == true) {
+                                          couponOpen = false;
+                                        } else {
+                                          couponOpen = true;
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 15),
+                                        alignment: Alignment.centerLeft,
+                                        //color: Colors.grey[200],
+                                        //padding: EdgeInsets.all(20),
+                                        child: Text(
+                                          couponOpen == false
+                                              ? "Do you have voucher?"
+                                              : "Not now",
+                                          style: TextStyle(
+                                              color: header, fontSize: 13),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                       Container(
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.only(
@@ -708,572 +1406,6 @@ class _CartState extends State<CartPage> {
                               ),
                             ],
                           )),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.only(
-                            top: 5, left: 20, right: 20, bottom: 5),
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                            color: Colors.white,
-                            border: Border.all(width: 0.2, color: Colors.grey)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Product List",
-                              style:
-                                  TextStyle(fontSize: 17, color: Colors.black),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              padding:
-                                  EdgeInsets.only(top: 5, right: 5, bottom: 5),
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Product 1",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  val--;
-                                                  if (val <= 0) {
-                                                    val = 0;
-                                                  }
-                                                });
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color:
-                                                            Colors.grey[500]),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5)),
-                                                padding: EdgeInsets.all(2),
-                                                margin: EdgeInsets.only(
-                                                    left: 3, right: 10),
-                                                child: Icon(Icons.remove,
-                                                    size: 15,
-                                                    color: Colors.black54),
-                                              ),
-                                            ),
-                                            Text(
-                                              "$val",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Colors.black54),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  val++;
-                                                });
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color:
-                                                            Colors.grey[500]),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5)),
-                                                padding: EdgeInsets.all(2),
-                                                margin: EdgeInsets.only(
-                                                    left: 10, right: 3),
-                                                child: Icon(Icons.add,
-                                                    size: 15,
-                                                    color: Colors.black54),
-                                              ),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Product 2",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey[500]),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              padding: EdgeInsets.all(2),
-                                              margin: EdgeInsets.only(
-                                                  left: 3, right: 10),
-                                              child: Icon(Icons.remove,
-                                                  size: 15,
-                                                  color: Colors.black54),
-                                            ),
-                                            Text(
-                                              "2",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Colors.black54),
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey[500]),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              padding: EdgeInsets.all(2),
-                                              margin: EdgeInsets.only(
-                                                  left: 10, right: 3),
-                                              child: Icon(Icons.add,
-                                                  size: 15,
-                                                  color: Colors.black54),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Product 3",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey[500]),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              padding: EdgeInsets.all(2),
-                                              margin: EdgeInsets.only(
-                                                  left: 3, right: 10),
-                                              child: Icon(Icons.remove,
-                                                  size: 15,
-                                                  color: Colors.black54),
-                                            ),
-                                            Text(
-                                              "3",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Colors.black54),
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey[500]),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              padding: EdgeInsets.all(2),
-                                              margin: EdgeInsets.only(
-                                                  left: 10, right: 3),
-                                              child: Icon(Icons.add,
-                                                  size: 15,
-                                                  color: Colors.black54),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Product 4",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey[500]),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              padding: EdgeInsets.all(2),
-                                              margin: EdgeInsets.only(
-                                                  left: 3, right: 10),
-                                              child: Icon(Icons.remove,
-                                                  size: 15,
-                                                  color: Colors.black54),
-                                            ),
-                                            Text(
-                                              "4",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Colors.black54),
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey[500]),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              padding: EdgeInsets.all(2),
-                                              margin: EdgeInsets.only(
-                                                  left: 10, right: 3),
-                                              child: Icon(Icons.add,
-                                                  size: 15,
-                                                  color: Colors.black54),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.only(
-                            top: 5, left: 20, right: 20, bottom: 5),
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                            color: Colors.white,
-                            border: Border.all(width: 0.2, color: Colors.grey)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Apply Coupon",
-                              style:
-                                  TextStyle(fontSize: 17, color: Colors.black),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 0,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Flexible(
-                                    child: Container(
-                                      child: TextField(
-                                        autofocus: false,
-                                        controller: _reviewController,
-                                        decoration: InputDecoration(
-                                            hintText: "Type coupon number..."),
-                                        onChanged: (value) {
-                                          review = value;
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                      margin: EdgeInsets.only(left: 10),
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0)),
-                                          color: header,
-                                          border: Border.all(
-                                              width: 0.2, color: Colors.grey)),
-                                      child: Text(
-                                        "Apply",
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.only(
-                            top: 5, left: 20, right: 20, bottom: 5),
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                            color: Colors.white,
-                            border: Border.all(width: 0.2, color: Colors.grey)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Shopping Details",
-                              style:
-                                  TextStyle(fontSize: 17, color: Colors.black),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              padding:
-                                  EdgeInsets.only(top: 5, right: 5, bottom: 5),
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Total Products",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Text(
-                                          "4",
-                                          textAlign: TextAlign.start,
-                                          style:
-                                              TextStyle(color: Colors.black54),
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Total Price",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Icon(Icons.attach_money,
-                                                size: 15,
-                                                color: Colors.black54),
-                                            Text(
-                                              "250.25",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Colors.black54),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Discount",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Icon(Icons.remove,
-                                                size: 15, color: header),
-                                            Icon(Icons.attach_money,
-                                                size: 15, color: header),
-                                            Text(
-                                              "50.05",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(color: header),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Sub Total",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Icon(Icons.attach_money,
-                                                size: 15,
-                                                color: Colors.black54),
-                                            Text(
-                                              "200.20",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Colors.black54),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Coupon Discount",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Icon(Icons.remove,
-                                                size: 15, color: header),
-                                            Icon(Icons.attach_money,
-                                                size: 15, color: header),
-                                            Text(
-                                              "0.00",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(color: header),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Shipping Cost",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Icon(Icons.attach_money,
-                                                size: 15,
-                                                color: Colors.black54),
-                                            Text(
-                                              "100.00",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Colors.black54),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.grey,
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5, bottom: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                            //color: Colors.grey[200],
-                                            //padding: EdgeInsets.all(20),
-                                            child: Text(
-                                          "Total Payable",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                        Container(
-                                            child: Row(
-                                          children: <Widget>[
-                                            Icon(Icons.attach_money,
-                                                size: 15, color: Colors.black),
-                                            Text(
-                                              "300.20",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
                       Container(
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.only(

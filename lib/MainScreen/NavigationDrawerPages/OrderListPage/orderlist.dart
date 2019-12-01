@@ -251,15 +251,19 @@ class _OrderListPageState extends State<OrderListPage> {
                     padding: EdgeInsets.all(5.0),
                     child: Container(
                       decoration: new BoxDecoration(
-                      color: Colors.white, // border color
-                      shape: BoxShape.circle,
-                      border: Border.all(color: header, width: 0.8)
-                    ),
+                          color: Colors.white, // border color
+                          shape: BoxShape.circle,
+                          border: Border.all(color: header, width: 0.8)),
                       child: CircleAvatar(
                         radius: 30.0,
                         backgroundColor: Colors.white,
                         //backgroundImage: AssetImage('assets/meal1.png'),
-                        child: Image.asset('assets/meal1.png', fit: BoxFit.fill, height: 30, width: 30,),
+                        child: Image.asset(
+                          'assets/meal1.png',
+                          fit: BoxFit.fill,
+                          height: 30,
+                          width: 30,
+                        ),
                       ),
                     ),
                     decoration: new BoxDecoration(
@@ -809,45 +813,68 @@ class _OrderListPageState extends State<OrderListPage> {
                                       );
                               },
                             ))
-                        : Container(
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.all(10),
-                            //color: Colors.white,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 1.0,
-                                  color: Colors.black.withOpacity(.5),
-                                  //offset: Offset(6.0, 7.0),
-                                ),
-                              ],
-                              //shape: BoxShape.rectangle,
-                              //border: Border.all(),
-                              color: Colors.white,
-                            ),
+                        : SingleChildScrollView(
                             child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 180,
-                                    child: Center(
-                                      child: Container(
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: Image.asset(
-                                          'assets/no_net.jpg',
+                              margin: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10),
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      //height: 180,
+                                      child: Center(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Image.asset(
+                                            'assets/no_net.jpg',
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                      margin:
-                                          EdgeInsets.only(top: 10, bottom: 10),
-                                      child: Text("No Internet Connection!",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black54)))
-                                ],
+                                    Container(
+                                        margin: EdgeInsets.only(
+                                            top: 10, bottom: 10),
+                                        child: Text("No network!",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black54,
+                                                fontWeight: FontWeight.bold))),
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(top: 0, bottom: 10),
+                                        child: Text(
+                                            "No internet connection\nCheck the connection of the network",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black38))),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 5),
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: header,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.refresh,
+                                            size: 15,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            "Retry",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),

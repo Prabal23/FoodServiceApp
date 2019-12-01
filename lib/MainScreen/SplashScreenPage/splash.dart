@@ -43,8 +43,8 @@ class SplashScreenState extends State<SplashScreen>
             CircleAvatar(
               backgroundColor: Colors.transparent,
               //backgroundImage: ExactAssetImage('assets/logo.png'),
-              minRadius: 60,
-              maxRadius: 60,
+              minRadius: 40,
+              maxRadius: 40,
               //radius: 68.0,
               child: Image.asset('assets/meal1.png'),
             ),
