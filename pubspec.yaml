@@ -29,6 +29,7 @@ dependencies:
   flutter_multiple_image_picker:
   flutter_statusbarcolor:
   image_picker:
+  smooth_star_rating:
 
 dev_dependencies:
   flutter_test:
@@ -48,20 +49,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/logo.png
-    - assets/tshirt.png
-    - assets/no_net.jpg
-    - assets/shirt.jpg
-    - assets/pant.jpg
-    - assets/shoe.png
-    - assets/user.png
-    - assets/foodpanda_bd.jpg
-    - assets/burger.jpg
-    - assets/roll.jpg
-    - assets/voucher.jpg
-    - assets/coupon.png
-    - assets/meal.png
-    - assets/meal1.png
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

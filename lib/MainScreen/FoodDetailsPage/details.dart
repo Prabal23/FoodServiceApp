@@ -8,6 +8,7 @@ import 'package:foodpanda_app/MainScreen/NavigationDrawerPages/CartPage/cartPage
 import 'package:foodpanda_app/MainScreen/ReviewRestaurantPage/reviewRestaurantPage.dart';
 import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../../main.dart';
 
@@ -69,6 +70,47 @@ class DetailsPageState extends State<DetailsPage>
       _ratingStatus = "Excellent";
     }
   }
+
+  List reviewList = [
+    {
+      'name': 'Pranto',
+      'rating': 4.5,
+      'review':
+          'Very good service. Nice environment and quality food. Overall satisfied.',
+      'time': 'Jan 23, 2019',
+    },
+    {
+      'name': 'Bijoya',
+      'rating': 5.0,
+      'review':
+          'Nice environment and quality food. Very good service. I loved it',
+      'time': 'Jan 30, 2019',
+    },
+    {
+      'name': 'Rahi',
+      'rating': 4.8,
+      'review': 'Everything was perfect.',
+      'time': 'Feb 2, 2020',
+    },
+    {
+      'name': 'Good quality but quantity was limited. Need to increase.',
+      'rating': 3.5,
+      'review': 'review',
+      'time': 'Feb 13, 2020',
+    },
+    {
+      'name': 'Laxmi',
+      'rating': 3.0,
+      'review': 'Very good place but food was not up to the mark.',
+      'time': 'Feb 26, 2020',
+    },
+    {
+      'name': 'Amran',
+      'rating': 5.0,
+      'review': 'Sera khani. Khub vala lagse.',
+      'time': 'Feb 27, 2020',
+    }
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +187,7 @@ class DetailsPageState extends State<DetailsPage>
                                 padding: const EdgeInsets.all(0.0),
                                 margin: EdgeInsets.only(top: 0),
                                 child: Image.asset(
-                                  'assets/roll.jpg',
+                                  'assets/burger.jpg',
                                   height: 100,
                                   width: 120,
                                 ),
@@ -167,7 +209,7 @@ class DetailsPageState extends State<DetailsPage>
                                     children: <Widget>[
                                       Container(
                                         child: Text(
-                                          "Restaurant Name",
+                                          "Panshi Restaurant",
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -189,7 +231,7 @@ class DetailsPageState extends State<DetailsPage>
                                           Container(
                                             margin: EdgeInsets.only(left: 0),
                                             child: Text(
-                                              "Place Name",
+                                              "Zindabazar, Sylhet",
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.black54),
@@ -625,7 +667,7 @@ class DetailsPageState extends State<DetailsPage>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Delivery 45 min",
+                                    "Delivery 35 min",
                                     style:
                                         TextStyle(color: header, fontSize: 13),
                                   ),
@@ -903,7 +945,25 @@ class DetailsPageState extends State<DetailsPage>
                                                   onTap: () {
                                                     setState(() {
                                                       num++;
-                                                      tk += 150.0;
+                                                      if (index == 0) {
+                                                        totalPrice += 150.0;
+                                                        cartList.add({
+                                                          'image':
+                                                              'assets/burger.jpg',
+                                                          'name': 'Burger',
+                                                          'price': 150,
+                                                          'quantity': 1
+                                                        });
+                                                      } else {
+                                                        totalPrice += 120.0;
+                                                        cartList.add({
+                                                          'image':
+                                                              'assets/pizza.jpg',
+                                                          'name': 'Pizza',
+                                                          'price': 120,
+                                                          'quantity': 1
+                                                        });
+                                                      }
                                                     });
                                                   },
                                                   child: Container(
@@ -1021,7 +1081,10 @@ class DetailsPageState extends State<DetailsPage>
                                                                         ),
                                                                       ),
                                                                       Text(
-                                                                        "150",
+                                                                        index % 2 ==
+                                                                                0
+                                                                            ? "150"
+                                                                            : "120",
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 14,
@@ -1067,7 +1130,25 @@ class DetailsPageState extends State<DetailsPage>
                                                   onTap: () {
                                                     setState(() {
                                                       num++;
-                                                      tk += 150.0;
+                                                      if (index == 0) {
+                                                        totalPrice += 150.0;
+                                                        cartList.add({
+                                                          'image':
+                                                              'assets/burger.jpg',
+                                                          'name': 'Burger',
+                                                          'price': 150,
+                                                          'quantity': 1
+                                                        });
+                                                      } else {
+                                                        totalPrice += 120.0;
+                                                        cartList.add({
+                                                          'image':
+                                                              'assets/pizza.jpg',
+                                                          'name': 'Pizza',
+                                                          'price': 120,
+                                                          'quantity': 1
+                                                        });
+                                                      }
                                                     });
                                                   },
                                                   child: Container(
@@ -1185,7 +1266,10 @@ class DetailsPageState extends State<DetailsPage>
                                                                         ),
                                                                       ),
                                                                       Text(
-                                                                        "150",
+                                                                        index ==
+                                                                                0
+                                                                            ? "150"
+                                                                            : "120",
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 14,
@@ -1204,7 +1288,7 @@ class DetailsPageState extends State<DetailsPage>
                                                   ),
                                                 ),
                                               ),
-                                              itemCount: 5,
+                                              itemCount: 2,
                                             );
                                     },
                                   ),
@@ -1223,7 +1307,27 @@ class DetailsPageState extends State<DetailsPage>
                                                   onTap: () {
                                                     setState(() {
                                                       num++;
-                                                      tk += 150.0;
+                                                      if (index == 0) {
+                                                        totalPrice += 170.0;
+                                                        cartList.add({
+                                                          'image':
+                                                              'assets/biriyani.jpg',
+                                                          'name':
+                                                              'Chicken Biriyani',
+                                                          'price': 170,
+                                                          'quantity': 1
+                                                        });
+                                                      } else {
+                                                        totalPrice += 135.0;
+                                                        cartList.add({
+                                                          'image':
+                                                              'assets/biriyani2.jpg',
+                                                          'name':
+                                                              'Kashmiri Biriyani',
+                                                          'price': 135,
+                                                          'quantity': 1
+                                                        });
+                                                      }
                                                     });
                                                   },
                                                   child: Container(
@@ -1344,7 +1448,7 @@ class DetailsPageState extends State<DetailsPage>
                                                                         index % 2 ==
                                                                                 0
                                                                             ? "170"
-                                                                            : "120",
+                                                                            : "135",
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 14,
@@ -1390,7 +1494,27 @@ class DetailsPageState extends State<DetailsPage>
                                                   onTap: () {
                                                     setState(() {
                                                       num++;
-                                                      tk += 150.0;
+                                                      if (index == 0) {
+                                                        totalPrice += 170.0;
+                                                        cartList.add({
+                                                          'image':
+                                                              'assets/biriyani.jpg',
+                                                          'name':
+                                                              'Chicken Biriyani',
+                                                          'price': 170,
+                                                          'quantity': 1
+                                                        });
+                                                      } else {
+                                                        totalPrice += 135.0;
+                                                        cartList.add({
+                                                          'image':
+                                                              'assets/biriyani2.jpg',
+                                                          'name':
+                                                              'Kashmiri Biriyani',
+                                                          'price': 135,
+                                                          'quantity': 1
+                                                        });
+                                                      }
                                                     });
                                                   },
                                                   child: Container(
@@ -1511,7 +1635,7 @@ class DetailsPageState extends State<DetailsPage>
                                                                         index % 2 ==
                                                                                 0
                                                                             ? "170"
-                                                                            : "120",
+                                                                            : "135",
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 14,
@@ -1530,7 +1654,7 @@ class DetailsPageState extends State<DetailsPage>
                                                   ),
                                                 ),
                                               ),
-                                              itemCount: 5,
+                                              itemCount: 2,
                                             );
                                     },
                                   ),
@@ -1586,6 +1710,7 @@ class DetailsPageState extends State<DetailsPage>
                                       color: Colors.white,
                                     ),
                                     child: SingleChildScrollView(
+                                      physics: BouncingScrollPhysics(),
                                       child: Container(
                                         child: Column(
                                           children: <Widget>[
@@ -1628,7 +1753,7 @@ class DetailsPageState extends State<DetailsPage>
                                                                     top: 10,
                                                                     bottom: 3),
                                                             child: Text(
-                                                                "Restaurant Name",
+                                                                "Panshi Restaurant",
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         17,
@@ -1640,7 +1765,7 @@ class DetailsPageState extends State<DetailsPage>
                                                                     top: 0,
                                                                     bottom: 10),
                                                             child: Text(
-                                                                "Thai, Chinese, Bengali, Indian",
+                                                                "Bangladeshi",
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         13,
@@ -2006,7 +2131,7 @@ class DetailsPageState extends State<DetailsPage>
                                                                         left:
                                                                             22.5),
                                                                 child: Text(
-                                                                  "demo@email.xyz",
+                                                                  "panshires1@gmail.com",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black54,
@@ -2031,6 +2156,7 @@ class DetailsPageState extends State<DetailsPage>
                                   Center(
                                       child: Container(
                                           child: GridView.builder(
+                                    physics: BouncingScrollPhysics(),
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
@@ -2088,9 +2214,13 @@ class DetailsPageState extends State<DetailsPage>
                                                       margin: EdgeInsets.only(
                                                           top: 0),
                                                       child: Image.asset(
-                                                        index % 2 == 0
+                                                        index == 0
                                                             ? 'assets/burger.jpg'
-                                                            : 'assets/roll.jpg',
+                                                            : index == 1
+                                                                ? 'assets/roll.jpg'
+                                                                : index == 2
+                                                                    ? 'assets/pizza.jpg'
+                                                                    : 'assets/sandwich.jpg',
                                                         //height: 100,
                                                         width: 140,
                                                       ),
@@ -2103,7 +2233,7 @@ class DetailsPageState extends State<DetailsPage>
                                         ),
                                       ),
                                     ),
-                                    itemCount: 10,
+                                    itemCount: 4,
                                   ))),
                                   Row(
                                     //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -2193,6 +2323,8 @@ class DetailsPageState extends State<DetailsPage>
                                                       EdgeInsets.only(left: 2),
                                                   //height: 250,
                                                   child: new ListView.builder(
+                                                    physics:
+                                                        BouncingScrollPhysics(),
                                                     //scrollDirection: Axis.horizontal,
                                                     itemBuilder:
                                                         (BuildContext context,
@@ -2273,13 +2405,13 @@ class DetailsPageState extends State<DetailsPage>
                                                                           Expanded(
                                                                             child:
                                                                                 Text(
-                                                                              "John Smith",
+                                                                              "${reviewList[index]['name']}",
                                                                               overflow: TextOverflow.ellipsis,
                                                                               style: TextStyle(fontSize: 13, color: Colors.black54, fontWeight: FontWeight.bold),
                                                                             ),
                                                                           ),
                                                                           Text(
-                                                                            "July 14, 2019",
+                                                                            "${reviewList[index]['time']}",
                                                                             style:
                                                                                 TextStyle(
                                                                               fontSize: 11,
@@ -2300,30 +2432,16 @@ class DetailsPageState extends State<DetailsPage>
                                                                               MainAxisAlignment.start,
                                                                           children: <
                                                                               Widget>[
-                                                                            Icon(
-                                                                              Icons.star,
-                                                                              color: header,
-                                                                              size: 14,
-                                                                            ),
-                                                                            Icon(
-                                                                              Icons.star,
-                                                                              color: header,
-                                                                              size: 14,
-                                                                            ),
-                                                                            Icon(
-                                                                              Icons.star,
-                                                                              color: header,
-                                                                              size: 14,
-                                                                            ),
-                                                                            Icon(
-                                                                              Icons.star_half,
-                                                                              color: header,
-                                                                              size: 14,
-                                                                            ),
-                                                                            Icon(
-                                                                              Icons.star_border,
-                                                                              color: header,
-                                                                              size: 14,
+                                                                            Container(
+                                                                              child: SmoothStarRating(
+                                                                                allowHalfRating: false,
+                                                                                rating: reviewList[index]['rating'],
+                                                                                size: 15,
+                                                                                starCount: 5,
+                                                                                spacing: 1.0,
+                                                                                color: header,
+                                                                                //borderColor: Colors.teal[400],
+                                                                              ),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -2334,7 +2452,7 @@ class DetailsPageState extends State<DetailsPage>
                                                                                 5),
                                                                         child:
                                                                             Text(
-                                                                          "this is a very good product. very useful in reasonable price.",
+                                                                          "${reviewList[index]['review']}",
                                                                           style: TextStyle(
                                                                               fontSize: 13,
                                                                               color: Colors.black38),
@@ -2355,7 +2473,8 @@ class DetailsPageState extends State<DetailsPage>
                                                         ),
                                                       ),
                                                     ),
-                                                    itemCount: 20,
+                                                    itemCount:
+                                                        reviewList.length,
                                                   ),
                                                 ),
                                               ),
@@ -2376,28 +2495,28 @@ class DetailsPageState extends State<DetailsPage>
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: num == 0 && tk == 0.0 ? 0 : 50,
-        width: MediaQuery.of(context).size.width,
-        color: header,
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => CartPage(1)));
+        },
         child: Container(
-          margin: EdgeInsets.only(right: 20, left: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                  padding: EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Text("$num",
-                      style: TextStyle(color: Colors.black, fontSize: 13))),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CartPage(1)));
-                  },
+          height: num == 0 && totalPrice == 0.0 ? 0 : 50,
+          width: MediaQuery.of(context).size.width,
+          color: header,
+          child: Container(
+            margin: EdgeInsets.only(right: 20, left: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Text("${cartList.length}",
+                        style: TextStyle(color: Colors.black, fontSize: 13))),
+                Expanded(
                   child: Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -2411,20 +2530,20 @@ class DetailsPageState extends State<DetailsPage>
                     ),
                   ),
                 ),
-              ),
-              Container(
-                  child: Row(
-                children: <Widget>[
-                  Icon(Icons.attach_money, size: 15, color: Colors.white),
-                  Text(
-                    "$tk",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ))
-            ],
+                Container(
+                    child: Row(
+                  children: <Widget>[
+                    Icon(Icons.attach_money, size: 15, color: Colors.white),
+                    Text(
+                      "$totalPrice",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ))
+              ],
+            ),
           ),
         ),
       ),

@@ -351,7 +351,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       //color: Colors.grey[200],
                                       //padding: EdgeInsets.all(20),
                                       child: Text(
-                                    "Appifylab",
+                                    "John Smith",
                                     style: TextStyle(color: Colors.black54),
                                   )),
                                 ],
@@ -379,7 +379,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                         Container(
                                             margin: EdgeInsets.only(left: 5),
                                             child: Text(
-                                              "Modina Market",
+                                              "New York, USA",
                                               style:
                                                   TextStyle(color: Colors.grey),
                                             )),

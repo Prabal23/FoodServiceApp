@@ -16,6 +16,69 @@ class _FoodPageState extends State<FoodPage> {
   String result = '';
   int loc = 1, loc1 = 0;
 
+  List foodList = [
+    {
+      'name':'Panshi Restaurant',
+      'type':'Bangladeshi',
+      'deliveryType':'Free Delivery',
+      'time':'35 MIN',
+      'rating':'5',
+      'people':'30',
+      'image':'assets/burger.jpg',
+      'discout':'20% OFF',
+    },
+    {
+      'name':'Bhujon Bari Restaurant',
+      'type':'Bangladeshi',
+      'deliveryType':'Free Delivery',
+      'time':'40 MIN',
+      'rating':'4.8',
+      'people':'35',
+      'image':'assets/roll.jpg',
+      'discout':'10% OFF',
+    },
+    {
+      'name':'Panch Bhai Restaurant',
+      'type':'Bangladeshi, Indian',
+      'deliveryType':'Free Delivery',
+      'time':'25 MIN',
+      'rating':'5',
+      'people':'20',
+      'image':'assets/sandwich.jpg',
+      'discout':'',
+    },
+    {
+      'name':'Asmi Food',
+      'type':'Bangladeshi, Indian',
+      'deliveryType':'Free Delivery',
+      'time':'50 MIN',
+      'rating':'4.2',
+      'people':'10',
+      'image':'assets/pasta.jpg',
+      'discout':'',
+    },
+    {
+      'name':'Panshi Food',
+      'type':'Bangladeshi, Indian, Thai',
+      'deliveryType':'Free Delivery',
+      'time':'45 MIN',
+      'rating':'4.8',
+      'people':'50',
+      'image':'assets/swarma.jpg',
+      'discout':'5% OFF',
+    },
+    {
+      'name':'Rice and Spice Restaurant',
+      'type':'Bangladeshi, Indian',
+      'deliveryType':'Free Delivery',
+      'time':'30 MIN',
+      'rating':'3.6',
+      'people':'23',
+      'image':'assets/pizza.jpg',
+      'discout':'',
+    }
+  ];
+
   @override
   void initState() {
     internetCheck();
@@ -166,6 +229,7 @@ class _FoodPageState extends State<FoodPage> {
                       child: MediaQuery.of(context).orientation ==
                               Orientation.portrait
                           ? ListView.builder(
+                            physics: BouncingScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) =>
                                   new Padding(
                                 padding: const EdgeInsets.all(0.0),
@@ -185,10 +249,10 @@ class _FoodPageState extends State<FoodPage> {
                                       ),
                                     ],
                                   ),
-                                  child: PortraitFoodCard(index),
+                                  child: PortraitFoodCard(foodList[index]),
                                 ),
                               ),
-                              itemCount: 20,
+                              itemCount: foodList.length,
                             )
                           : GridView.builder(
                               gridDelegate:

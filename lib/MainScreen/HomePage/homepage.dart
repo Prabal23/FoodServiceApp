@@ -11,6 +11,7 @@ import 'package:foodpanda_app/MainScreen/NavigationDrawerPages/SettingsPage/sett
 import 'package:foodpanda_app/MainScreen/NavigationDrawerPages/TermsConPage/termsConPage.dart';
 import 'package:foodpanda_app/MainScreen/NavigationDrawerPages/VoucherPage/vouchers.dart';
 import 'package:foodpanda_app/MainScreen/ProfileEditPage/profileEditPage.dart';
+import 'package:foodpanda_app/MainScreen/RegisterPage/registerPage.dart';
 import 'package:foodpanda_app/main.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -22,6 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool internet = true, isFocused = false;
   String result = '';
   int loc = 1, loc1 = 0;
+  int _current = 0;
   int currentIndex = selectedPage;
   final pageOptions = [
     FoodPage(),
@@ -59,6 +61,244 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Future<Null> showDialogBox() async {
+    return showDialog<Null>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5.0))),
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            content: SingleChildScrollView(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    color: Colors.transparent,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(20),
+                        margin: EdgeInsets.only(top: 35),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.only(top: 25),
+                                child: Text(
+                                  "Sign in to your account",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Oswald',
+                                      fontWeight: FontWeight.w400),
+                                )),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.only(top: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                      width: 0.2, color: Colors.grey)),
+                              child: TextFormField(
+                                autofocus: false,
+                                style: TextStyle(fontSize: 14),
+                                decoration: InputDecoration(
+                                  icon: Container(
+                                    margin: EdgeInsets.only(left: 10),
+                                    child: const Icon(
+                                      Icons.email,
+                                      color: Colors.black38,
+                                      size: 17,
+                                    ),
+                                  ),
+                                  hintText: 'Email',
+                                  hintStyle: TextStyle(fontSize: 14),
+                                  //labelText: 'Enter E-mail',
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(0.0, 5.0, 20.0, 5.0),
+                                  border: InputBorder.none,
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? 'Field is empty' : null,
+                                onSaved: (val) => result = val,
+                                //validator: _validateEmail,
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.only(top: 5),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                      width: 0.2, color: Colors.grey)),
+                              child: TextFormField(
+                                autofocus: false,
+                                obscureText: true,
+                                style: TextStyle(fontSize: 14),
+                                decoration: InputDecoration(
+                                  icon: Container(
+                                    margin: EdgeInsets.only(left: 10),
+                                    child: const Icon(
+                                      Icons.lock,
+                                      color: Colors.black38,
+                                      size: 17,
+                                    ),
+                                  ),
+                                  hintText: 'Password',
+                                  hintStyle: TextStyle(fontSize: 14),
+
+                                  //labelText: 'Enter E-mail',
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(0.0, 5.0, 20.0, 5.0),
+                                  border: InputBorder.none,
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? 'Field is empty' : null,
+                                onSaved: (val) => result = val,
+                                //validator: _validateEmail,
+                              ),
+                            ),
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          Navigator.of(context).pop();
+                                          _current = 1;
+                                          isLoggedin = true;
+                                        });
+                                      },
+                                      child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          margin: EdgeInsets.only(
+                                              left: 0,
+                                              right: 0,
+                                              top: 10,
+                                              bottom: 0),
+                                          decoration: BoxDecoration(
+                                              color: header,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5))),
+                                          child: Text(
+                                            "Submit",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontFamily: 'BebasNeue',
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          )),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(
+                                    left: 0, top: 15, bottom: 0),
+                                child: Text(
+                                  "Forget password?",
+                                  style: TextStyle(
+                                      color: header,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
+                                )),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5)),
+                        margin: EdgeInsets.only(top: 10, bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                child: Text(
+                              "Don't have an account?",
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w300),
+                            )),
+                            GestureDetector(
+                              onTap: () {
+                                //Navigator.of(context).pop();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterPage()),
+                                );
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    "Sign up",
+                                    style: TextStyle(
+                                        color: header,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
+                    padding: EdgeInsets.all(5.0),
+                    child: Container(
+                      decoration: new BoxDecoration(
+                          color: Colors.white, // border color
+                          shape: BoxShape.circle,
+                          border: Border.all(color: header, width: 0.8)),
+                      child: CircleAvatar(
+                        radius: 30.0,
+                        backgroundColor: Colors.white,
+                        //backgroundImage: AssetImage('assets/meal1.png'),
+                        child: Image.asset(
+                          'assets/meal1.png',
+                          fit: BoxFit.fill,
+                          height: 30,
+                          width: 30,
+                        ),
+                      ),
+                    ),
+                    decoration: new BoxDecoration(
+                      color: Colors.white, // border color
+                      shape: BoxShape.circle,
+                      //border: Border.all(color: header, width: 0.8)
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     Drawer drawer = new Drawer(
@@ -67,61 +307,99 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Container(
             child: new Wrap(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          //color: Colors.red,
-                          margin: EdgeInsets.only(left: 10, right: 0, top: 0),
-                          padding: EdgeInsets.only(right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(right: 10),
-                                //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
-                                padding: EdgeInsets.all(1.0),
-                                child: CircleAvatar(
-                                  radius: 30.0,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage:
-                                      AssetImage('assets/user.png'),
-                                ),
-                                decoration: new BoxDecoration(
-                                  color: Colors.grey, // border color
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      "Hello,",
-                                      style: TextStyle(
-                                          fontSize: 15, color: Colors.black38),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              //color: Colors.red,
+                              margin:
+                                  EdgeInsets.only(left: 10, right: 0, top: 0),
+                              padding: EdgeInsets.only(right: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(right: 10),
+                                    //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
+                                    padding: EdgeInsets.all(1.0),
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage: isLoggedin
+                                          ? AssetImage('assets/user.jpg')
+                                          : AssetImage('assets/user.png'),
                                     ),
-                                    Text(
-                                      "John Smith",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 17),
+                                    decoration: new BoxDecoration(
+                                      color: Colors.grey, // border color
+                                      shape: BoxShape.circle,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          "Hello,",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black38),
+                                        ),
+                                        Text(
+                                          isLoggedin ? "John Smith" : "User",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 17),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                          // Container(
+                          //     margin: EdgeInsets.only(right: 15),
+                          //     child: Icon(Icons.chevron_right)),
+                        ],
                       ),
-                      // Container(
-                      //     margin: EdgeInsets.only(right: 15),
-                      //     child: Icon(Icons.chevron_right)),
-                    ],
-                  ),
+                    ),
+                    isLoggedin
+                        ? Container()
+                        : Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: showDialogBox,
+                                  child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      margin: EdgeInsets.only(right: 10),
+                                      decoration: BoxDecoration(
+                                          color: header,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: Text("Login",
+                                          style:
+                                              TextStyle(color: Colors.white))),
+                                ),
+                                Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(color: header)),
+                                    child: Text("Register",
+                                        style: TextStyle(color: header))),
+                              ],
+                            ),
+                          )
+                  ],
                 ),
                 Container(
                     margin: EdgeInsets.only(top: 15),
@@ -204,7 +482,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       trailing: Container(
                           child: new Text(
-                        "8",
+                        "${cartList.length}",
                         style: TextStyle(color: header),
                       )),
                       onTap: () => {
@@ -241,7 +519,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       trailing: Container(
                           child: new Text(
-                        "5",
+                        "2",
                         style: TextStyle(color: header),
                       )),
                       onTap: () => {
@@ -332,34 +610,34 @@ class _MyHomePageState extends State<MyHomePage> {
                           }),
                 ),
                 Divider(color: Colors.grey),
-                Container(
-                  margin: EdgeInsets.only(right: 20, top: 0),
-                  decoration: currentIndex == 5
-                      ? BoxDecoration(
-                          color: header.withOpacity(0.1),
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(100),
-                              bottomRight: Radius.circular(100)))
-                      : BoxDecoration(),
-                  child: new ListTile(
-                    leading: new Icon(
-                      Icons.settings,
-                      color: currentIndex == 5 ? header : Colors.black54,
-                    ),
-                    title: new Text(
-                      'Settings',
-                      style: TextStyle(
-                          color: currentIndex == 5 ? header : Colors.black54),
-                    ),
-                    onTap: () => {
-                      Navigator.pop(context),
-                      setState(() {
-                        currentIndex = 5;
-                        selectedPage = 5;
-                      })
-                    },
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.only(right: 20, top: 0),
+                //   decoration: currentIndex == 5
+                //       ? BoxDecoration(
+                //           color: header.withOpacity(0.1),
+                //           borderRadius: BorderRadius.only(
+                //               topRight: Radius.circular(100),
+                //               bottomRight: Radius.circular(100)))
+                //       : BoxDecoration(),
+                //   child: new ListTile(
+                //     leading: new Icon(
+                //       Icons.settings,
+                //       color: currentIndex == 5 ? header : Colors.black54,
+                //     ),
+                //     title: new Text(
+                //       'Settings',
+                //       style: TextStyle(
+                //           color: currentIndex == 5 ? header : Colors.black54),
+                //     ),
+                //     onTap: () => {
+                //       Navigator.pop(context),
+                //       setState(() {
+                //         currentIndex = 5;
+                //         selectedPage = 5;
+                //       })
+                //     },
+                //   ),
+                // ),
                 Container(
                   margin: EdgeInsets.only(right: 20, top: 0),
                   decoration: currentIndex == 6

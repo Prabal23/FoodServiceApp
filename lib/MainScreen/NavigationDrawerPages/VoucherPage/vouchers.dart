@@ -16,9 +16,14 @@ class _VoucherPageState extends State<VoucherPage> {
   int _current = 0;
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await showDialogBox();
-    });
+    isLoggedin
+        ? Container()
+        : WidgetsBinding.instance.addPostFrameCallback((_) async {
+            await showDialogBox();
+          });
+    if (isLoggedin) {
+      _current = 1;
+    }
     internetCheck();
     super.initState();
   }
@@ -342,12 +347,12 @@ class _VoucherPageState extends State<VoucherPage> {
                                               ),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            OrderDetailsPage()),
-                                                  );
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           OrderDetailsPage()),
+                                                  // );
                                                 },
                                                 child: ListTile(
                                                   title: Stack(
@@ -386,7 +391,7 @@ class _VoucherPageState extends State<VoucherPage> {
                                                                                 Container(
                                                                               width: MediaQuery.of(context).size.width,
                                                                               child: Text(
-                                                                                index % 2 == 0 ? "Voucher Name" : "Voucher Name from List",
+                                                                                index % 2 == 0 ? "Bhasha21" : "Shadhinota_26",
                                                                                 maxLines: 1,
                                                                                 overflow: TextOverflow.ellipsis,
                                                                                 style: TextStyle(
@@ -821,8 +826,7 @@ class _VoucherPageState extends State<VoucherPage> {
                                     children: <Widget>[
                                       Container(
                                         height: 145,
-                                        width:
-                                            100,
+                                        width: 100,
                                         child: Center(
                                           child: Container(
                                             padding: const EdgeInsets.all(3.0),

@@ -12,6 +12,10 @@ Color chat_back = Color(0xFFEAE7E2);
 Color my_chat = Color(0xFFDAF5C2);
 
 int selectedPage = 0;
+double totalPrice = 0.0;
+bool isLoggedin = false;
+List cartList = [];
+List addressList = [];
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -22,9 +26,9 @@ class MyApp extends StatelessWidget {
       title: 'Food Panda',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        //platform: TargetPlatform.android
-        //primarySwatch: header
-      ),
+          //platform: TargetPlatform.android
+          //primarySwatch: header
+          ),
       home: SplashScreen(),
     );
   }

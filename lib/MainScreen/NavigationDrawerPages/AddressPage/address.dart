@@ -17,9 +17,14 @@ class _AddressPageState extends State<AddressPage> {
   int _current = 0;
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await showDialogBox();
-    });
+    isLoggedin
+        ? Container()
+        : WidgetsBinding.instance.addPostFrameCallback((_) async {
+            await showDialogBox();
+          });
+    if (isLoggedin) {
+      _current = 1;
+    }
     internetCheck();
     super.initState();
   }

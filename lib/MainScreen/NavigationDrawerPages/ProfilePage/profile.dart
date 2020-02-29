@@ -18,9 +18,14 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await showDialogBox();
-    });
+    isLoggedin
+        ? Container()
+        : WidgetsBinding.instance.addPostFrameCallback((_) async {
+            await showDialogBox();
+          });
+    if (isLoggedin) {
+      _current = 1;
+    }
     super.initState();
   }
 
@@ -233,15 +238,19 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                     padding: EdgeInsets.all(5.0),
                     child: Container(
                       decoration: new BoxDecoration(
-                      color: Colors.white, // border color
-                      shape: BoxShape.circle,
-                      border: Border.all(color: header, width: 0.8)
-                    ),
+                          color: Colors.white, // border color
+                          shape: BoxShape.circle,
+                          border: Border.all(color: header, width: 0.8)),
                       child: CircleAvatar(
-                        radius: 30.0, 
+                        radius: 30.0,
                         backgroundColor: Colors.white,
                         //backgroundImage: AssetImage('assets/meal1.png'),
-                        child: Image.asset('assets/meal1.png', fit: BoxFit.fill, height: 30, width: 30,),
+                        child: Image.asset(
+                          'assets/meal1.png',
+                          fit: BoxFit.fill,
+                          height: 30,
+                          width: 30,
+                        ),
                       ),
                     ),
                     decoration: new BoxDecoration(
@@ -281,8 +290,9 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                                 child: CircleAvatar(
                                   radius: 30.0,
                                   backgroundColor: Colors.transparent,
-                                  backgroundImage:
-                                      AssetImage('assets/user.png'),
+                                  backgroundImage: isLoggedin
+                                      ? AssetImage('assets/user.jpg')
+                                      : AssetImage('assets/user.png'),
                                 ),
                                 decoration: new BoxDecoration(
                                   color: Colors.grey, // border color
@@ -340,7 +350,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                                           margin:
                                               EdgeInsets.only(left: 8, top: 3),
                                           child: Text(
-                                            "Modina Market",
+                                            "New York, USA",
                                             style: TextStyle(
                                                 color: Colors.black38,
                                                 fontSize: 15),

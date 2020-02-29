@@ -4,8 +4,8 @@ import 'package:foodpanda_app/MainScreen/FoodDetailsPage/details.dart';
 import '../../main.dart';
 
 class PortraitFoodCard extends StatefulWidget {
-  final index;
-  PortraitFoodCard(this.index);
+  final foodList;
+  PortraitFoodCard(this.foodList);
   @override
   _PortraitFoodCardState createState() => _PortraitFoodCardState();
 }
@@ -37,9 +37,7 @@ class _PortraitFoodCardState extends State<PortraitFoodCard> {
                         padding: const EdgeInsets.all(0.0),
                         margin: EdgeInsets.only(top: 0),
                         child: Image.asset(
-                          widget.index % 2 == 0
-                              ? 'assets/burger.jpg'
-                              : 'assets/roll.jpg',
+                          widget.foodList['image'],
                           height: 100,
                           width: 120,
                           fit: BoxFit.cover,
@@ -61,9 +59,7 @@ class _PortraitFoodCardState extends State<PortraitFoodCard> {
                           children: <Widget>[
                             Container(
                               child: Text(
-                                widget.index % 2 == 0
-                                    ? "Restaurant Name"
-                                    : "Restaurant Name from list",
+                                widget.foodList['name'],
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -83,10 +79,7 @@ class _PortraitFoodCardState extends State<PortraitFoodCard> {
                                   //Icon(Icons.label_important, size: 15, color: header,),
                                   Container(
                                     margin: EdgeInsets.only(left: 0),
-                                    child: Text(
-                                        widget.index % 2 == 0
-                                            ? "Thai, Chinese"
-                                            : "Italian, Chinese, Thai",
+                                    child: Text(widget.foodList['type'],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -153,9 +146,8 @@ class _PortraitFoodCardState extends State<PortraitFoodCard> {
                                             child: Container(
                                               margin: EdgeInsets.only(left: 3),
                                               child: Text(
-                                                  widget.index % 2 == 0
-                                                      ? "Free Delivery"
-                                                      : "50 (Delivery Charge)",
+                                                  widget
+                                                      .foodList['deliveryType'],
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -191,10 +183,7 @@ class _PortraitFoodCardState extends State<PortraitFoodCard> {
                                         ),
                                         Container(
                                           margin: EdgeInsets.only(left: 4),
-                                          child: Text(
-                                              widget.index % 2 == 0
-                                                  ? "35 MIN"
-                                                  : "1 HR",
+                                          child: Text(widget.foodList['time'],
                                               style: TextStyle(
                                                   color: Colors.grey[500],
                                                   fontSize: 11)),
@@ -212,13 +201,15 @@ class _PortraitFoodCardState extends State<PortraitFoodCard> {
                                         ),
                                         Container(
                                             margin: EdgeInsets.only(left: 3),
-                                            child: Text("5.0",
+                                            child: Text(
+                                                widget.foodList['rating'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
                                                     fontSize: 12))),
                                         Container(
                                             margin: EdgeInsets.only(left: 2),
-                                            child: Text("(30)",
+                                            child: Text(
+                                                "(${widget.foodList['people']})",
                                                 style: TextStyle(
                                                     color: Colors.black54,
                                                     fontSize: 12)))
@@ -242,11 +233,13 @@ class _PortraitFoodCardState extends State<PortraitFoodCard> {
                   children: <Widget>[
                     Container(
                         padding: EdgeInsets.all(5),
-                        color: widget.index % 2 == 0
+                        color: widget.foodList['discout'] != ''
                             ? header.withOpacity(0.7)
                             : Colors.transparent,
                         child: Text(
-                          widget.index % 2 == 0 ? "20% OFF" : "",
+                          widget.foodList['discout'] != ''
+                              ? "${widget.foodList['discout']}"
+                              : "",
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         )),
                   ],

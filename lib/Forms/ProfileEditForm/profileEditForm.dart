@@ -29,7 +29,7 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
   @override
   void initState() {
     nameController.text = 'John Smith';
-    addressController.text = 'Modina Market';
+    addressController.text = 'New York, USA';
     phoneController.text = '017XXXXXXXX';
     emailController.text = 'john.smith@gmail.com';
     bdController.text = '23/01/1993';
@@ -86,7 +86,9 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
                         child: CircleAvatar(
                           radius: 50.0,
                           backgroundColor: Colors.transparent,
-                          backgroundImage: AssetImage('assets/user.png'),
+                          backgroundImage: isLoggedin
+                              ? AssetImage('assets/user.jpg')
+                              : AssetImage('assets/user.png'),
                         ),
                         decoration: new BoxDecoration(
                           color: Colors.grey, // border color
@@ -144,7 +146,7 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
                       border: Border.all(width: 0.2, color: Colors.grey)),
                   child: TextField(
                     controller: nameController,
-                    autofocus: true,
+                    autofocus: false,
                     style: TextStyle(color: Colors.black54),
                     decoration: InputDecoration(
                       hintText: 'Type your name...',
@@ -169,6 +171,7 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
                       border: Border.all(width: 0.2, color: Colors.grey)),
                   child: TextField(
                     controller: addressController,
+                    autofocus: false,
                     style: TextStyle(color: Colors.black54),
                     decoration: InputDecoration(
                       hintText: 'Type your address...',
@@ -193,6 +196,7 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
                       border: Border.all(width: 0.2, color: Colors.grey)),
                   child: TextField(
                     controller: phoneController,
+                    autofocus: false,
                     style: TextStyle(color: Colors.black54),
                     decoration: InputDecoration(
                       hintText: 'Type your phone number...',
@@ -215,6 +219,7 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
                       border: Border.all(width: 0.2, color: Colors.grey)),
                   child: TextField(
                     controller: emailController,
+                    autofocus: false,
                     style: TextStyle(color: Colors.black54),
                     decoration: InputDecoration(
                       hintText: 'Type your email...',
