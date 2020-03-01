@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:foodpanda_app/MainScreen/AddressAddEditPage/address_add_edit.dart';
@@ -21,10 +23,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool internet = true, isFocused = false;
-  String result = '';
+  String result = '', name = "John Smith";
   int loc = 1, loc1 = 0;
   int _current = 0;
   int currentIndex = selectedPage;
+  Future<File> img;
   final pageOptions = [
     FoodPage(),
     ProfileViewPage(),
@@ -39,6 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     internetCheck();
+    setState(() {
+      //print(profileInfo[0]['image']);
+      if (profileInfo.length != 0) {
+        img = file;
+        name = profileInfo[0]['name'];
+        print(file);
+      }
+    });
     super.initState();
   }
 
@@ -64,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<Null> showDialogBox() async {
     return showDialog<Null>(
         context: context,
-        barrierDismissible: false,
+        barrierDismissible: true,
         builder: (BuildContext context) {
           return new AlertDialog(
             shape: RoundedRectangleBorder(
@@ -324,19 +335,57 @@ class _MyHomePageState extends State<MyHomePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Container(
-                                    margin: EdgeInsets.only(right: 10),
-                                    //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
-                                    padding: EdgeInsets.all(1.0),
-                                    child: CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundColor: Colors.transparent,
-                                      backgroundImage: isLoggedin
-                                          ? AssetImage('assets/user.jpg')
-                                          : AssetImage('assets/user.png'),
-                                    ),
-                                    decoration: new BoxDecoration(
-                                      color: Colors.grey, // border color
-                                      shape: BoxShape.circle,
+                                    margin: EdgeInsets.only(right: 15),
+                                    child: FutureBuilder<File>(
+                                      future: img,
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<File> snapshot) {
+                                        if (snapshot.connectionState ==
+                                                ConnectionState.done &&
+                                            snapshot.data != null) {
+                                          return Container(
+                                            //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
+                                            padding: EdgeInsets.all(1.0),
+                                            child: CircleAvatar(
+                                              radius: 30.0,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              backgroundImage:
+                                                  FileImage(snapshot.data),
+                                            ),
+                                            decoration: new BoxDecoration(
+                                              color:
+                                                  Colors.grey, // border color
+                                              shape: BoxShape.circle,
+                                            ),
+                                          );
+                                        } else if (snapshot.error != null) {
+                                          return const Text(
+                                            'Error Picking Image',
+                                            textAlign: TextAlign.center,
+                                          );
+                                        } else {
+                                          return Container(
+                                            //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
+                                            padding: EdgeInsets.all(1.0),
+                                            child: CircleAvatar(
+                                              radius: 30.0,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              backgroundImage: isLoggedin
+                                                  ? AssetImage(
+                                                      'assets/user.jpg')
+                                                  : AssetImage(
+                                                      'assets/user.png'),
+                                            ),
+                                            decoration: new BoxDecoration(
+                                              color:
+                                                  Colors.grey, // border color
+                                              shape: BoxShape.circle,
+                                            ),
+                                          );
+                                        }
+                                      },
                                     ),
                                   ),
                                   Expanded(
@@ -351,7 +400,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                               color: Colors.black38),
                                         ),
                                         Text(
-                                          isLoggedin ? "John Smith" : "User",
+                                          isLoggedin
+                                              ? name == "" ? "John Smith" : name
+                                              : "User",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(fontSize: 17),
@@ -388,14 +439,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                           style:
                                               TextStyle(color: Colors.white))),
                                 ),
-                                Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(color: header)),
-                                    child: Text("Register",
-                                        style: TextStyle(color: header))),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                RegisterPage()));
+                                  },
+                                  child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          border: Border.all(color: header)),
+                                      child: Text("Register",
+                                          style: TextStyle(color: header))),
+                                ),
                               ],
                             ),
                           )
@@ -556,7 +617,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       trailing: Container(
                           child: new Text(
-                        "2",
+                        "${addressList.length}",
                         style: TextStyle(color: header),
                       )),
                       onTap: () => {
@@ -666,13 +727,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
-                new ListTile(
-                  leading:
-                      new Icon(Icons.settings_power, color: Colors.black54),
-                  title: new Text('Logout',
-                      style: TextStyle(color: Colors.black54)),
-                  onTap: () => {},
-                ),
+                isLoggedin
+                    ? new ListTile(
+                        leading: new Icon(Icons.settings_power,
+                            color: Colors.black54),
+                        title: new Text('Logout',
+                            style: TextStyle(color: Colors.black54)),
+                        onTap: () => {logoutDialog()},
+                      )
+                    : Container(),
               ],
             ),
           ),
@@ -1236,6 +1299,150 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void logoutDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          title: Center(
+            child: Stack(children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.center,
+                    //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
+                    padding: EdgeInsets.all(0.0),
+                    child: Container(
+                      decoration: new BoxDecoration(
+                          color: Colors.white, // border color
+                          shape: BoxShape.circle,
+                          border: Border.all(color: header, width: 0.8)),
+                      child: CircleAvatar(
+                        radius: 30.0,
+                        backgroundColor: Colors.white,
+                        //backgroundImage: AssetImage('assets/meal1.png'),
+                        child: Image.asset(
+                          'assets/meal1.png',
+                          fit: BoxFit.fill,
+                          height: 30,
+                          width: 30,
+                        ),
+                      ),
+                    ),
+                    decoration: new BoxDecoration(
+                      color: Colors.white, // border color
+                      shape: BoxShape.circle,
+                      //border: Border.all(color: header, width: 0.8)
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 20),
+                      //padding: EdgeInsets.all(10),
+                      child: Text(
+                        "Do you want to logout from the app?",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+                      )),
+                  Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Divider(color: Colors.black26)),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin:
+                                  EdgeInsets.only(left: 0, right: 5, top: 10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                  color: header,
+                                  border: Border.all(
+                                      width: 0.2, color: Colors.grey)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.cancel,
+                                    color: Colors.white,
+                                    size: 15,
+                                  ),
+                                  Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      child: Text("Cancel",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14)))
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              setState(() {
+                                isLoggedin = false;
+                              });
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin:
+                                  EdgeInsets.only(left: 5, right: 0, top: 10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                  color: header,
+                                  border: Border.all(
+                                      width: 0.2, color: Colors.grey)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                    size: 15,
+                                  ),
+                                  Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      child: Text("OK",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14)))
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        );
+      },
+    );
+  }
+
   void filterPage() {
     Navigator.of(context).push(new MaterialPageRoute<Null>(
         builder: (BuildContext context) {
@@ -1245,10 +1452,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void editProfile() {
-    Navigator.of(context).push(new MaterialPageRoute<Null>(
-        builder: (BuildContext context) {
-          return new ProfileEditDialog();
-        },
-        fullscreenDialog: true));
+    // Navigator.of(context).push(new MaterialPageRoute<Null>(
+    //     builder: (BuildContext context) {
+    //       return new ProfileEditDialog();
+    //     },
+    //     fullscreenDialog: true));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ProfileEditDialog()));
   }
 }

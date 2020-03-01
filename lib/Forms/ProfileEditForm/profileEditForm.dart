@@ -28,11 +28,27 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
 
   @override
   void initState() {
-    nameController.text = 'John Smith';
-    addressController.text = 'New York, USA';
-    phoneController.text = '017XXXXXXXX';
-    emailController.text = 'john.smith@gmail.com';
-    bdController.text = '23/01/1993';
+    if (file != null) {
+      fileImage = file;
+    }
+    if (profileInfo.length == 0) {
+      setState(() {
+        nameController.text = 'John Smith';
+        addressController.text = 'New York, USA';
+        phoneController.text = '017XXXXXXXX';
+        emailController.text = 'john.smith@gmail.com';
+        bdController.text = '23/01/1993';
+      });
+    } else {
+      setState(() {
+        nameController.text = profileInfo[0]['name'];
+        addressController.text = profileInfo[0]['address'];
+        phoneController.text = profileInfo[0]['phone'];
+        emailController.text = profileInfo[0]['email'];
+        bdController.text = '23/01/1993';
+      });
+    }
+
     var now = new DateTime.now();
     date = new DateFormat("dd/MM/yyyy").format(now);
     super.initState();
@@ -229,26 +245,42 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
                       border: InputBorder.none,
                     ),
                   ))),
-          Container(
-            margin: EdgeInsets.only(left: 25, right: 15, bottom: 20, top: 5),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                color: header,
-                border: Border.all(width: 0.2, color: Colors.grey)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.edit,
-                  size: 20,
-                  color: Colors.white,
-                ),
-                Container(
-                    margin: EdgeInsets.only(left: 5),
-                    child: Text("Edit",
-                        style: TextStyle(color: Colors.white, fontSize: 17)))
-              ],
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                profileInfo.clear();
+                file = fileImage;
+                profileInfo.add({
+                  'name': nameController.text,
+                  'address': addressController.text,
+                  'phone': phoneController.text,
+                  'email': emailController.text,
+                });
+                //print(profileInfo[0]['image']);
+              });
+              Navigator.pop(context);
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 25, right: 15, bottom: 20, top: 5),
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  color: header,
+                  border: Border.all(width: 0.2, color: Colors.grey)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.edit,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Text("Edit",
+                          style: TextStyle(color: Colors.white, fontSize: 17)))
+                ],
+              ),
             ),
           ),
         ],

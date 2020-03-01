@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,7 +16,12 @@ class ProfileViewPage extends StatefulWidget {
 class _ProfileViewPageState extends State<ProfileViewPage> {
   int _current = 0;
   int _isBack = 0;
-  String result = '';
+  String result = '',
+      name = "John Smith",
+      add = "New York, USA",
+      phn = "087XXXXXXXX",
+      email = "john.smith@gmail.com";
+  Future<File> img;
 
   @override
   void initState() {
@@ -26,6 +33,17 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
     if (isLoggedin) {
       _current = 1;
     }
+    setState(() {
+      //print(profileInfo[0]['image']);
+      if (profileInfo.length != 0) {
+        img = file;
+        name = profileInfo[0]['name'];
+        add = profileInfo[0]['address'];
+        phn = profileInfo[0]['phone'];
+        email = profileInfo[0]['email'];
+        print(file);
+      }
+    });
     super.initState();
   }
 
@@ -284,20 +302,67 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Container(
-                                //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
-                                padding: EdgeInsets.all(1.0),
-                                child: CircleAvatar(
-                                  radius: 30.0,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: isLoggedin
-                                      ? AssetImage('assets/user.jpg')
-                                      : AssetImage('assets/user.png'),
-                                ),
-                                decoration: new BoxDecoration(
-                                  color: Colors.grey, // border color
-                                  shape: BoxShape.circle,
-                                ),
+                              // Container(
+                              //   //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
+                              //   padding: EdgeInsets.all(1.0),
+                              //   child: CircleAvatar(
+                              //     radius: 30.0,
+                              //     backgroundColor: Colors.transparent,
+                              //     backgroundImage: isLoggedin
+                              //         ? profileInfo.length == 0
+                              //             ? AssetImage('assets/user.jpg')
+                              //             : FileImage(file)
+                              //         : AssetImage('assets/user.png'),
+                              //   ),
+                              //   decoration: new BoxDecoration(
+                              //     color: Colors.grey, // border color
+                              //     shape: BoxShape.circle,
+                              //   ),
+                              // ),
+                              FutureBuilder<File>(
+                                future: file,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<File> snapshot) {
+                                  if (snapshot.connectionState ==
+                                          ConnectionState.done &&
+                                      snapshot.data != null) {
+                                    return Container(
+                                      //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
+                                      padding: EdgeInsets.all(1.0),
+                                      child: CircleAvatar(
+                                        radius: 30.0,
+                                        backgroundColor: Colors.transparent,
+                                        backgroundImage:
+                                            FileImage(snapshot.data),
+                                      ),
+                                      decoration: new BoxDecoration(
+                                        color: Colors.grey, // border color
+                                        shape: BoxShape.circle,
+                                      ),
+                                    );
+                                  } else if (snapshot.error != null) {
+                                    return const Text(
+                                      'Error Picking Image',
+                                      textAlign: TextAlign.center,
+                                    );
+                                  } else {
+                                    return Container(
+                                      //transform: Matrix4.translationValues(0.0, 0.0, 0.0),
+                                      padding: EdgeInsets.all(1.0),
+                                      child: CircleAvatar(
+                                        radius: 30.0,
+                                        backgroundColor: Colors.transparent,
+                                        backgroundImage: isLoggedin
+                                            ? AssetImage('assets/user.jpg')
+                                            : AssetImage('assets/user.png'),
+                                      ),
+                                      decoration: new BoxDecoration(
+                                        color: Colors.grey, // border color
+                                        shape: BoxShape.circle,
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
                               SizedBox(
                                 width: 10,
@@ -311,7 +376,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                                         fontSize: 13, color: Colors.black38),
                                   ),
                                   Text(
-                                    "John Smith",
+                                    name,
                                     style: TextStyle(fontSize: 17),
                                   ),
                                 ],
@@ -350,7 +415,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                                           margin:
                                               EdgeInsets.only(left: 8, top: 3),
                                           child: Text(
-                                            "New York, USA",
+                                            add,
                                             style: TextStyle(
                                                 color: Colors.black38,
                                                 fontSize: 15),
@@ -391,7 +456,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                                           margin:
                                               EdgeInsets.only(left: 8, top: 3),
                                           child: Text(
-                                            "017XXXXXXXX",
+                                            phn,
                                             style: TextStyle(
                                                 color: Colors.black38,
                                                 fontSize: 15),
@@ -432,7 +497,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                                           margin:
                                               EdgeInsets.only(left: 8, top: 3),
                                           child: Text(
-                                            "john.smith@gmail.com",
+                                            email,
                                             style: TextStyle(
                                                 color: Colors.black38,
                                                 fontSize: 15),

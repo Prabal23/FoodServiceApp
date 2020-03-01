@@ -26,10 +26,11 @@ dependencies:
   connectivity:
   carousel_slider:
   intl:
-  flutter_multiple_image_picker:
+  # flutter_multiple_image_picker:
   flutter_statusbarcolor:
   image_picker:
   smooth_star_rating:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:

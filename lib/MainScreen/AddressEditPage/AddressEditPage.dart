@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodpanda_app/main.dart';
 
-class AddressAddEditDialog extends StatefulWidget {
+class AddressEditDialog extends StatefulWidget {
+  final addressList;
+  final index;
+  AddressEditDialog(this.addressList, this.index);
+
   @override
-  _AddressAddEditDialogState createState() => new _AddressAddEditDialogState();
+  _AddressEditDialogState createState() => new _AddressEditDialogState();
 }
 
-class _AddressAddEditDialogState extends State<AddressAddEditDialog> {
+class _AddressEditDialogState extends State<AddressEditDialog> {
   int _current = 0;
   int _isBack = 0;
   String result = '', date = 'Select Birth Date';
@@ -24,6 +28,30 @@ class _AddressAddEditDialogState extends State<AddressAddEditDialog> {
 
   @override
   void initState() {
+    setState(() {
+      titleController.text = widget.addressList['title'];
+      houseController.text = widget.addressList['house'];
+      roadController.text = widget.addressList['road'];
+      areaController.text = widget.addressList['area'];
+      blockController.text = widget.addressList['block'];
+      flatController.text = widget.addressList['flat'];
+
+      if (widget.addressList['type'] == 'Home') {
+        cat = 1;
+        cat1 = 0;
+        cat2 = 0;
+      } else if (widget.addressList['type'] == 'Work') {
+        cat = 0;
+        cat1 = 1;
+        cat2 = 0;
+      } else if (widget.addressList['type'] != 'Home' &&
+          widget.addressList['type'] != 'Work') {
+        cat = 0;
+        cat1 = 0;
+        cat2 = 1;
+      }
+    });
+
     super.initState();
   }
 
@@ -67,102 +95,115 @@ class _AddressAddEditDialogState extends State<AddressAddEditDialog> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                cat = 1;
-                                cat1 = 0;
-                                cat2 = 0;
-                              });
-                            },
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.home,
-                                    color: (cat == 1 && cat1 == 0 && cat2 == 0)
-                                        ? header
-                                        : Colors.black54,
-                                    size: 18,
-                                  ),
-                                  Text("Home",
-                                      style: TextStyle(
+                        widget.addressList['type'] == 'Home'
+                            ? Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      cat = 1;
+                                      cat1 = 0;
+                                      cat2 = 0;
+                                    });
+                                  },
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.home,
                                           color: (cat == 1 &&
                                                   cat1 == 0 &&
                                                   cat2 == 0)
                                               ? header
                                               : Colors.black54,
-                                          fontSize: 12)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                cat = 0;
-                                cat1 = 1;
-                                cat2 = 0;
-                              });
-                            },
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.work,
-                                    color: (cat == 0 && cat1 == 1 && cat2 == 0)
-                                        ? header
-                                        : Colors.black54,
-                                    size: 18,
+                                          size: 18,
+                                        ),
+                                        Text("Home",
+                                            style: TextStyle(
+                                                color: (cat == 1 &&
+                                                        cat1 == 0 &&
+                                                        cat2 == 0)
+                                                    ? header
+                                                    : Colors.black54,
+                                                fontSize: 12)),
+                                      ],
+                                    ),
                                   ),
-                                  Text("Work",
-                                      style: TextStyle(
+                                ),
+                              )
+                            : Container(),
+                        widget.addressList['type'] == 'Work'
+                            ? Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      cat = 0;
+                                      cat1 = 1;
+                                      cat2 = 0;
+                                    });
+                                  },
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.work,
                                           color: (cat == 0 &&
                                                   cat1 == 1 &&
                                                   cat2 == 0)
                                               ? header
                                               : Colors.black54,
-                                          fontSize: 12)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                cat = 0;
-                                cat1 = 0;
-                                cat2 = 1;
-                              });
-                            },
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.add_circle,
-                                    color: (cat == 0 && cat1 == 0 && cat2 == 1)
-                                        ? header
-                                        : Colors.black54,
-                                    size: 18,
+                                          size: 18,
+                                        ),
+                                        Text("Work",
+                                            style: TextStyle(
+                                                color: (cat == 0 &&
+                                                        cat1 == 1 &&
+                                                        cat2 == 0)
+                                                    ? header
+                                                    : Colors.black54,
+                                                fontSize: 12)),
+                                      ],
+                                    ),
                                   ),
-                                  Text("Other",
-                                      style: TextStyle(
+                                ),
+                              )
+                            : Container(),
+                        widget.addressList['type'] != 'Home' &&
+                                widget.addressList['type'] != 'Work'
+                            ? Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      cat = 0;
+                                      cat1 = 0;
+                                      cat2 = 1;
+                                    });
+                                  },
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.add_circle,
                                           color: (cat == 0 &&
                                                   cat1 == 0 &&
                                                   cat2 == 1)
                                               ? header
                                               : Colors.black54,
-                                          fontSize: 12)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
+                                          size: 18,
+                                        ),
+                                        Text("Other",
+                                            style: TextStyle(
+                                                color: (cat == 0 &&
+                                                        cat1 == 0 &&
+                                                        cat2 == 1)
+                                                    ? header
+                                                    : Colors.black54,
+                                                fontSize: 12)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container()
                       ],
                     ),
                   ),
@@ -368,6 +409,7 @@ class _AddressAddEditDialogState extends State<AddressAddEditDialog> {
     } else if (areaController.text == '') {
       _showErrorAlert('Area is empty');
     } else {
+      addressList.removeAt(widget.index);
       addressList.add({
         'title': titleController.text,
         'house': houseController.text,

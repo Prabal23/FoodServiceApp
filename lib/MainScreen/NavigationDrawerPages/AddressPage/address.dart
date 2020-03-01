@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:foodpanda_app/MainScreen/AddressAddEditPage/address_add_edit.dart';
+import 'package:foodpanda_app/MainScreen/AddressEditPage/AddressEditPage.dart';
 import 'package:foodpanda_app/MainScreen/OrderDetailsPage/order_details.dart';
 import 'package:foodpanda_app/MainScreen/RegisterPage/registerPage.dart';
 import 'package:foodpanda_app/main.dart';
@@ -378,25 +379,29 @@ class _AddressPageState extends State<AddressPage> {
                                                                       Row(
                                                                         children: <
                                                                             Widget>[
-                                                                          index % 2 == 0
+                                                                          addressList[index]['type'] == 'Home'
                                                                               ? Icon(
                                                                                   Icons.home,
                                                                                   color: header,
                                                                                   size: 17,
                                                                                 )
-                                                                              : Icon(
-                                                                                  Icons.work,
-                                                                                  color: header,
-                                                                                  size: 17,
-                                                                                ),
+                                                                              : addressList[index]['type'] == 'Work'
+                                                                                  ? Icon(
+                                                                                      Icons.work,
+                                                                                      color: header,
+                                                                                      size: 17,
+                                                                                    )
+                                                                                  : Icon(
+                                                                                      Icons.add_circle,
+                                                                                      color: header,
+                                                                                      size: 17,
+                                                                                    ),
                                                                           SizedBox(
                                                                             width:
                                                                                 5,
                                                                           ),
                                                                           Text(
-                                                                            index % 2 == 0
-                                                                                ? "Home"
-                                                                                : "Work",
+                                                                            addressList[index]['type'],
                                                                             style:
                                                                                 TextStyle(color: Colors.black45, fontSize: 15),
                                                                           ),
@@ -410,9 +415,259 @@ class _AddressPageState extends State<AddressPage> {
                                                                                 6),
                                                                         child:
                                                                             Text(
-                                                                          index % 2 == 0
-                                                                              ? "Kastoghar, Sylhet"
-                                                                              : "Modina Market, Sylhet",
+                                                                          "House/Plot: " +
+                                                                              addressList[index]['house'] +
+                                                                              "\nStreet/Road: " +
+                                                                              addressList[index]['road'] +
+                                                                              "\nArea: " +
+                                                                              addressList[index]['area'] +
+                                                                              "\nBlock/Sector: " +
+                                                                              addressList[index]['block'] +
+                                                                              "\nFloor/Flat: " +
+                                                                              addressList[index]['flat'],
+                                                                          style: TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 12),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  )),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: <
+                                                                  Widget>[
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator
+                                                                        .push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              AddressEditDialog(addressList[index], index)),
+                                                                    );
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        left: 5,
+                                                                        right:
+                                                                            0,
+                                                                        top: 0),
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(5),
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(5.0)),
+                                                                    ),
+                                                                    child: Row(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Icon(
+                                                                          Icons
+                                                                              .mode_edit,
+                                                                          color:
+                                                                              header,
+                                                                          size:
+                                                                              18,
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      addressList
+                                                                          .removeAt(
+                                                                              index);
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        left: 5,
+                                                                        right:
+                                                                            0,
+                                                                        top: 0),
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(5),
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(5.0)),
+                                                                    ),
+                                                                    child: Row(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Icon(
+                                                                          Icons
+                                                                              .delete,
+                                                                          color:
+                                                                              header,
+                                                                          size:
+                                                                              18,
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        itemCount: addressList.length,
+                                      )
+                                    : GridView.builder(
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          childAspectRatio:
+                                              (MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2) /
+                                                  (MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      2.5),
+                                        ),
+                                        //scrollDirection: Axis.horizontal,
+                                        itemBuilder:
+                                            (BuildContext context, int index) =>
+                                                new Padding(
+                                          padding: const EdgeInsets.all(0.0),
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                                bottom: 5,
+                                                top: 5,
+                                                left: 2.5,
+                                                right: 2.5),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                              //border: Border.all(width: 0.5, color: Colors.grey),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  blurRadius: 1.0,
+                                                  color: Colors.black
+                                                      .withOpacity(.5),
+                                                  //offset: Offset(6.0, 7.0),
+                                                ),
+                                              ],
+                                            ),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AddressAddEditDialog()),
+                                                );
+                                              },
+                                              child: ListTile(
+                                                title: Stack(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      //width: 100,
+                                                      padding: EdgeInsets.only(
+                                                          bottom: 10, top: 10),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: <Widget>[
+                                                          Expanded(
+                                                            child: Container(
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Container(
+                                                                      //margin: EdgeInsets.only(top: 10),
+                                                                      //padding: EdgeInsets.all(10),
+                                                                      child:
+                                                                          Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Row(
+                                                                        children: <
+                                                                            Widget>[
+                                                                          addressList[index]['type'] == 'Home'
+                                                                              ? Icon(
+                                                                                  Icons.home,
+                                                                                  color: header,
+                                                                                  size: 17,
+                                                                                )
+                                                                              : addressList[index]['type'] == 'Work'
+                                                                                  ? Icon(
+                                                                                      Icons.work,
+                                                                                      color: header,
+                                                                                      size: 17,
+                                                                                    )
+                                                                                  : Icon(
+                                                                                      Icons.add_circle,
+                                                                                      color: header,
+                                                                                      size: 17,
+                                                                                    ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                5,
+                                                                          ),
+                                                                          Text(
+                                                                            addressList[index]['type'],
+                                                                            style:
+                                                                                TextStyle(color: Colors.black45, fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Container(
+                                                                        margin: EdgeInsets.only(
+                                                                            left:
+                                                                                22.5,
+                                                                            top:
+                                                                                6),
+                                                                        child:
+                                                                            Text(
+                                                                          "House/Plot: " +
+                                                                              addressList[index]['house'] +
+                                                                              "\nStreet/Road: " +
+                                                                              addressList[index]['road'] +
+                                                                              "\nArea: " +
+                                                                              addressList[index]['area'] +
+                                                                              "\nBlock/Sector: " +
+                                                                              addressList[index]['block'] +
+                                                                              "\nFloor/Flat: " +
+                                                                              addressList[index]['flat'],
                                                                           style: TextStyle(
                                                                               color: Colors.black,
                                                                               fontSize: 12),
@@ -517,267 +772,7 @@ class _AddressPageState extends State<AddressPage> {
                                             ),
                                           ),
                                         ),
-                                        itemCount: 2,
-                                      )
-                                    : GridView.builder(
-                                        gridDelegate:
-                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          childAspectRatio:
-                                              (MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      2) /
-                                                  (MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      2.5),
-                                        ),
-                                        //scrollDirection: Axis.horizontal,
-                                        itemBuilder:
-                                            (BuildContext context, int index) =>
-                                                new Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: 0,
-                                                top: 5,
-                                                left: 2.5,
-                                                right: 2.5),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10)),
-                                              //border: Border.all(width: 0.5, color: Colors.grey),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 1.0,
-                                                  color: Colors.black
-                                                      .withOpacity(.5),
-                                                  //offset: Offset(6.0, 7.0),
-                                                ),
-                                              ],
-                                            ),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          OrderDetailsPage()),
-                                                );
-                                              },
-                                              child: GridTile(
-                                                child: Stack(
-                                                  children: <Widget>[
-                                                    Container(
-                                                      //width: 100,
-                                                      padding: EdgeInsets.only(
-                                                          left: 10,
-                                                          right: 10,
-                                                          bottom: 10,
-                                                          top: 10),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            child: Container(
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: <
-                                                                    Widget>[
-                                                                  Container(
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Expanded(
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width,
-                                                                            child:
-                                                                                Text(
-                                                                              index % 2 == 0 ? "Panshi Restaurant" : "Asmi Food",
-                                                                              maxLines: 1,
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              style: TextStyle(fontSize: 16, color: Colors.black),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 5,
-                                                                  ),
-                                                                  Container(
-                                                                    margin: EdgeInsets
-                                                                        .only(
-                                                                            left:
-                                                                                0),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        //Icon(Icons.label_important, size: 15, color: header,),
-                                                                        Container(
-                                                                          margin:
-                                                                              EdgeInsets.only(left: 0),
-                                                                          child: Text(
-                                                                              index % 2 == 0 ? "Chicken Biriyani" : "Kashmiri Biriyani",
-                                                                              maxLines: 1,
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              style: TextStyle(fontSize: 14, color: Colors.black54)),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  Container(
-                                                                    margin: EdgeInsets.only(
-                                                                        right:
-                                                                            0,
-                                                                        top: 5,
-                                                                        bottom:
-                                                                            10),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Icon(
-                                                                          Icons
-                                                                              .monetization_on,
-                                                                          size:
-                                                                              13,
-                                                                          color:
-                                                                              header,
-                                                                        ),
-                                                                        Container(
-                                                                          margin:
-                                                                              EdgeInsets.only(left: 3),
-                                                                          child: Text(
-                                                                              index % 2 == 0 ? "130" : "95",
-                                                                              maxLines: 1,
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              style: TextStyle(fontSize: 12, color: Colors.grey[700], fontWeight: FontWeight.bold)),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  Container(
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Container(
-                                                                          //color: Colors.red,
-                                                                          margin: EdgeInsets.only(
-                                                                              right: 8,
-                                                                              top: 0,
-                                                                              bottom: 0,
-                                                                              left: 0),
-                                                                          child:
-                                                                              Row(
-                                                                            children: <Widget>[
-                                                                              Icon(
-                                                                                Icons.calendar_today,
-                                                                                size: 13,
-                                                                                color: header,
-                                                                              ),
-                                                                              Container(
-                                                                                margin: EdgeInsets.only(left: 4),
-                                                                                child: Text(index % 2 == 0 ? "20/07/2019 7:12 PM" : "28/07/2019 2:00 PM", style: TextStyle(color: Colors.grey[600], fontSize: 11)),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            child: Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .end,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              children: <
-                                                                  Widget>[
-                                                                GestureDetector(
-                                                                  onTap: () {},
-                                                                  child:
-                                                                      Container(
-                                                                    margin: EdgeInsets.only(
-                                                                        left: 5,
-                                                                        right:
-                                                                            0,
-                                                                        top: 0),
-                                                                    padding:
-                                                                        EdgeInsets
-                                                                            .all(5),
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(
-                                                                                5.0)),
-                                                                        color:
-                                                                            header,
-                                                                        border: Border.all(
-                                                                            width:
-                                                                                0.2,
-                                                                            color:
-                                                                                Colors.grey)),
-                                                                    child: Row(
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Container(
-                                                                            margin:
-                                                                                EdgeInsets.only(left: 5),
-                                                                            child: Text("Reorder", style: TextStyle(color: Colors.white, fontSize: 11))),
-                                                                        Icon(
-                                                                          Icons
-                                                                              .arrow_right,
-                                                                          color:
-                                                                              Colors.white,
-                                                                          size:
-                                                                              15,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        itemCount: 5,
+                                        itemCount: addressList.length,
                                       );
                               },
                             ))

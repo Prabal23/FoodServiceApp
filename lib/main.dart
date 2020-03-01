@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'MainScreen/SplashScreenPage/splash.dart';
@@ -16,6 +18,8 @@ double totalPrice = 0.0;
 bool isLoggedin = false;
 List cartList = [];
 List addressList = [];
+List profileInfo = [];
+Future<File> file;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
